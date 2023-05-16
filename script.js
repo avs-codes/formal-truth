@@ -90,7 +90,7 @@ let constructBtn, clearBtn, w, h, layerOption, constructionMode, lineMode, input
 let Layer = '&#8801;'
 let NoLayer = "&#x2262;"
 
-let Spiral = '&#x2601;'
+let Spiral = '&#43612;'
 let Cloud = '&#9640;'
 
 let Monoline = '&#10072;&#10072;&#10072;'
@@ -203,7 +203,7 @@ function drawPoetry() {
     background('#f5f2c6')
   }
   strokeWeight(1)
-  let length = w / (Math.sqrt( string.length ) * 2)
+  let length = w / (Math.sqrt( string.length ) * 3)
   for (const c of string) {
     let key = c.toUpperCase();
     switch(key) {
@@ -531,16 +531,24 @@ function drawPoetry() {
 
         stroke('#c71414')
         strokeWeight(2)
-        turtle.moveForward(length*1.5);
+        
 
-        pop()
+        
         if (constructionMode.value() === Cloud) {
+          turtle.moveForward(length/2);
+          pop()
           turtle.x = random(100,w - 100)
-          turtle.y = random(100,w - 100)
+          turtle.y = random(100,h - 100)
         } else {
-        turtle.turnRight( floor(random(1,7)) * 45)
+          turtle.moveForward(length / ((turnCount+1)));
+          pop()
+        //turtle.turnRight( floor(random(1,7)) * 45)
+        if (turnCount === 6) {
+          turnCount = 0;
+        }
         turtle.turnRight( Math.floor(turnCount)  * 45)
-        turnCount += 0.0625
+        turnCount += (0.0625*2)
+        
         }
 
         if (lineMode.value() === Multiline) {
